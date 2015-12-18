@@ -20,9 +20,9 @@ class Raindrop {
     ellipse(loc.x, loc.y, diam, diam);
   }
 
-  boolean Touches(bucket b) {
+  boolean Touches() {
     boolean e;
-    if (loc.dist(c.loc) < diam/2 + c.diam/2) {    //if the distance b/w PVector c and loc is less than half the diam of the circle,  boolean e is true
+    if (loc.dist(mouse) < diam/2) {    //if the distance b/w PVector c and loc is less than half the diam of the circle,  boolean e is true
       e = true;
     } else {    //else if not, boolean e is false
       e = false;

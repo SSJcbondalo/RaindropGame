@@ -1,7 +1,7 @@
 int count = 100;
 PVector mouse;   //declare a P
 Raindrop[] r = new Raindrop [count];     //declare a new Raindrop called r
-
+Catcher c;
 
 // On your own, create an array of Raindrop objects instead of just one
 // Use the array instead of the single object
@@ -14,6 +14,7 @@ void setup() {
   for (int i = 0; i < count; i++){
   r[i] = new Raindrop(random(width), random(-height,0));   //Initialize r. The parameters used are the initial x and y positions
   }
+  c = new Catcher(800);
 }
 
 void draw() {
@@ -29,4 +30,6 @@ void draw() {
     r[i].reset();                           //if it does, reset the raindrop
   }
   }
+  c.display();
+  c.update();
 }

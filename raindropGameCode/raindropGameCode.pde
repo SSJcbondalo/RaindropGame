@@ -1,7 +1,9 @@
 int count = 100;
 PVector mouse;   //declare a P
 Raindrop[] r = new Raindrop [count];     //declare a new Raindrop called r
-Catcher c;
+Catcher c;        //declare catcher class
+int score;        //declare score variable
+
 
 // On your own, create an array of Raindrop objects instead of just one
 // Use the array instead of the single object
@@ -14,22 +16,33 @@ void setup() {
   for (int i = 0; i < count; i++){
   r[i] = new Raindrop(random(width), random(-height,0));   //Initialize r. The parameters used are the initial x and y positions
   }
-  c = new Catcher(800);
+  c = new Catcher(60);
+  score = 0;
 }
 
 void draw() {
   mouse.set(mouseX, mouseY);             //set value of mouse as mouseX,mouseY
   background(0, 200, 255);
+  text(score, 700, 300);
+  textSize(100);
   for (int i = 0; i < count; i++) {
   r[i].fall();         //make the raindrop fall. It should accelerate as if pulled towards the ground by earth's gravity
   r[i].display();      //display the raindrop
   if (r[i].Touches()) {      //check to see if the raindrop is in contact with the point represented by the PVector called mouse
-    r[i].reset();                         //if it is, reset the raindrop
+    r[i].reset();      //if it is, reset the raindrop
   }
   if (r[i].loc.y > height + r[i].diam/2) {     //check to see if the raindrop goes below the bottom of the screen
     r[i].reset();                           //if it does, reset the raindrop
   }
+  if (r[i].loc.y > height) {
+    score = score + 1;
+  }
   }
   c.display();
   c.update();
+  if (score > 200) {
+   background(255);
+   text("You lose
+  }
+  
 }

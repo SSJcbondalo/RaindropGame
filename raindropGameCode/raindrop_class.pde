@@ -1,12 +1,14 @@
 class Raindrop {
   float diam;
   PVector vel, accel, loc;
+  PImage bball;
 
   Raindrop(float a, float b) {
     loc = new PVector(a, b);
     vel = new PVector(0, 5);    //assign velocity to each new Raindrop
     accel = new PVector(0, random(.02, .08));    //assign acceleration to each new Raindrop
     diam = 50;    //give each new Raindrop diameter of 50
+    bball = loadImage("nba basketball.jpg");
   }
 
   void fall () {
@@ -15,12 +17,12 @@ class Raindrop {
   }
 
   void display () {
+    image(bball, loc.x, loc.y);
     noStroke();
     fill(225, 96, 232);
-    ellipse(loc.x, loc.y, diam, diam);
   }
 
-  boolean Touches() {
+  boolean Touches(Catcher c) {
     boolean e;
     if (loc.dist(mouse) < diam/2) {    //if the distance b/w PVector c and loc is less than half the diam of the circle,  boolean e is true
       e = true;

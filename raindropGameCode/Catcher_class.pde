@@ -1,15 +1,18 @@
 class Catcher {
   PVector loc;
   int diam;
+  PImage basket;
 
   Catcher(int tdiam) {
     loc = new PVector();
     diam = tdiam;
+    basket = loadImage("nba basket.jpg");
   }
 
   void display () {
     fill(0);
-    ellipse(loc.x, loc.y, diam, diam);
+    image(basket, mouseX, mouseY);
+    
   }
 
   void update() {

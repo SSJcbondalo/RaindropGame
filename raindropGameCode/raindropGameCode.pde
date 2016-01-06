@@ -1,6 +1,5 @@
-int count = 100;
-PVector mouse;   //declare a P
-Raindrop[] r = new Raindrop [count];     //declare a new Raindrop called r
+PVector mouse;   //declare a PVector for mouse
+ArrayList<Raindrop> keys = new ArrayList<Raindrop>();
 Catcher c;        //declare catcher class
 int score;        //declare score variable
 int screen;    //declare screen variable
@@ -8,17 +7,10 @@ PImage bkgrnd;  //declare background variable
 PImage LION;    //declare LION variable
 PImage played;  //declare played vartiable
 
-// On your own, create an array of Raindrop objects instead of just one
-// Use the array instead of the single object
-// You can start out by just using the single Raindrop as you test
-
 
 void setup() {
-  size(1200, 800);  
+  size(1200, 800);    //make a canvas 1200 across and 800 down
   mouse = new PVector();                //initialize mouse PVector. value is irrelevant since it will be set at the start of void draw(){}
-  for (int i = 0; i < count; i++) {
-    r[i] = new Raindrop(random(width), random(-height, 0));   //Initialize r. The parameters used are the initial x and y positions
-  }
   c = new Catcher();  //initialize catcher class
   score = 0;    //set initial score to 0
   screen = 0;    //make a circumstance for a situation to be true and thus allow something to happen once that situation is true
@@ -28,14 +20,14 @@ void setup() {
 }
 
 void draw() {
-    background(LION);      //make the background DJ Khaled's LION
-    fill(0);
-    textSize(75);
-    text("Ride With Me on The Path", 200, 150);  
-    text("to More Success", 300, 400);
-    text("*hold down space", 300, 500);    //draw text on start screen
-  
-  if (keyPressed) {
+  background(LION);      //make the background=DJ Khaled's LION
+  fill(0);  //give the text black fill
+  textSize(75);
+  text("Ride With Me on The Path", 200, 150);  
+  text("to More Success", 300, 400);
+  text("*hold down any key", 300, 500);    //draw text on start screen
+  keys.add(new Raindrop(random(width), 0));    //add more keys to the existing keys
+  if (keyPressed) {    //if key is Pressed...
     background(LION);      //make background 
     textSize(75);
     text("Notice How I Said More", 200, 300);
@@ -46,29 +38,29 @@ void draw() {
     screen = 2;
   }
   if (screen == 2) {      //this condition is true, therefore sets everything in motion
-  background(bkgrnd);    //use steph curry background when mouse is Pressed
-  mouse.set(mouseX, mouseY);             //set value of mouse as mouseX,mouseY
-  text(score, 700, 300);    //display score (how many baskets are in the catcher)
-  textSize(100);
-    for (int i = 0; i < count; i++) {
-    r[i].fall();         //make the raindrop fall. It should accelerate as if pulled towards the ground by earth's gravity
-    r[i].display();      //display the raindrop
-    if (r[i].loc.y > height + r[i].diam/2) {     //check to see if the raindrop goes below the bottom of the screen
-      r[i].reset();                           //if it does, reset traindrop
+    background(bkgrnd);    //use DJ Khaled background when mouse is Pressed
+    mouse.set(mouseX, mouseY);             //set value of mouse as mouseX,mouseY
+    textSize(50);
+    text(score, 1100, 300);    //display score (how many keys are in the catcher)
+    for (int i = keys.size()-1; i >= 0; i--) {
+      Raindrop k = keys.get(i);
+      c.display();    //display catcher
+      c.update();      
+      k.fall();      //make the keys to success fall
+      k.display();    //display te keys to success
+      if (k.Touches(c.loc)) {    //if a key is touching the water bottle...
+        keys.remove(i);      //remove the key touching the water bottle
+        score ++;    //every time a key touches the water bottle, add 1 to the score
+      }
     }
-    if (r[i].Touches(c)) {      //if the raindrop is touching the catcher (water bottle) reset the raindrop and add 1 to the current score
-      score = score + 1;
-      r[i].reset();
+    if (score > 200) {    //if the score reaches 119, the game ends and a pic of Dj Khaled w/ his quote appears along with some text
+      theend();      //use theend function
     }
   }
-  c.display();      //display the catcher
-  c.update();      //update the catcher
-  }
-  if (score == 99) {    //if the score reaches 99, the game ends and a pic of Dj Khaled w/ his quote appears along with some text
-    background(played);
-    textSize(35);
-    fill(38, 255, 217);
-    text("Don't EVER Play Yourself", 100, 100);
-    count = 0;    //set count to 0 so that the game ends
-  }
+}
+void theend () {
+  background(played);    //make the background the DJ Khaled Vine scene
+  textSize(35);
+  fill(38, 255, 217);    //give the text a light blue color
+  text("Don't EVER Play Yourself", 100, 50);      //end screen text
 }

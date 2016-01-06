@@ -5,9 +5,8 @@ class Raindrop {
 
   Raindrop(float a, float b) {
     loc = new PVector(a, b);
-    vel = new PVector(0, 5);    //assign velocity to each new Raindrop
+    vel = new PVector(0, 3);    //assign velocity to each new Raindrop
     accel = new PVector(0, random(.02, .08));    //assign acceleration to each new Raindrop
-    diam = 50;    //give each new Raindrop diameter of 50
     key = loadImage("key to success.png");    //bring in the key to success image
   }
 
@@ -18,17 +17,14 @@ class Raindrop {
 
   void display () {
     image(key, loc.x, loc.y);    //give the key to success image position
-
   }
 
-  boolean Touches(Catcher c) {    //set up true/false generator for conditions to be used in the main raindrop code
-    boolean e;
-    if (loc.dist(mouse) < diam/2) {    //if the distance b/w PVector c and loc is less than half the diam of the circle,  boolean e is true
-      e = true;
+  boolean Touches(PVector z) {    //set up true/false generator for conditions to be used in the main raindrop code
+    if (loc.dist(z) < 30) {    //if the distance b/w PVector c and loc is less than 30,  boolean e is true
+      return true;
     } else {    //else if not, boolean e is false
-      e = false;
-    };
-    return e;
+      return false;
+    }
   }
 
   void reset() {

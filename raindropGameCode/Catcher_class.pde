@@ -8,11 +8,11 @@ class Catcher {
   }
 
   void display () {
-    image(basket, mouseX-40, mouseY-40);    //make the water bottle image centered on the mouse
+    image(basket, loc.x, loc.y);    //make the water bottle image centered on the mouse
     
   }
 
   void update() {
-    loc.set(mouseX, mouseY);    //when the catcher is updated, make its location the same as the mouse's 
+    loc.set(mouseX-40, mouseY-40);    //when the catcher is updated, make its location the center of the image
   }
 }
